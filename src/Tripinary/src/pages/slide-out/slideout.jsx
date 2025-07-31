@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./slideout.css";
-import duckImage from "../../pages/slide-out/duck.jpeg";
+import tripImage from "../../pages/slide-out/Tripinary.png";
 import magnifierIcon from "../../pages/slide-out/search.png";
 
 // Access Google Places API key from environment variable
@@ -136,7 +136,7 @@ function SidePanel({ isOpen, searchQuery, onClose, place, destinationName }) {
               onChange={(e) => setSearchInputValue(e.target.value)}
             />
             <button className="search-button" onClick={handleSearch}>
-              <img src={magnifierIcon} alt="Search" className="search-icon" />
+              <img src={magnifierIcon} alt="Magnifying glass icon for search" className="search-icon" />
             </button>
           </div>
           <iframe
@@ -166,8 +166,8 @@ function SidePanel({ isOpen, searchQuery, onClose, place, destinationName }) {
             </div>
             <div className="image-placeholder">
               {placeDetails?.photos?.[0]
-                ? <img src={getPhotoUrl(placeDetails.photos[0].photo_reference)} alt="Place" />
-                : <img src={duckImage} alt="Default" />}
+                ? <img src={getPhotoUrl(placeDetails.photos[0].photo_reference)}  alt={`Image of ${placeDetails.name || "the selected place"}`} />
+                : <img src={tripImage}   alt="Logo placeholder for missing place image" />}
             </div>
           </div>
 
