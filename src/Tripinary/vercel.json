@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/generate-itinerary",
+      "dest": "/api/generate-itinerary.js"
+    },
+    {
+      "src": "/api/place-details",
+      "dest": "/api/place-details.js"
+    },
+    {
+      "src": "/api/place-search",
+      "dest": "/api/place-search.js"
+    }
+  ]
+} 
