@@ -2,7 +2,7 @@ import { React, useState, useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-import Place_AutoComplete from "../../components/place_autocomplete/Place_AutoComplete";
+import Place_AutoComplete from "../../components/place_autocomplete/Place_Autocomplete";
 import Activity_Suggestions from "../activity-suggestions/activity_suggestions";
 
 import ItineraryContext from "../../context/ItineraryContext";
@@ -24,6 +24,7 @@ const TripinaryMain = () => {
     itineraryForm,
     updateDestinationName,
     updateDuration,
+    clearItineraryForm,
     setGeneratedItinerary,
     setIsLoadingItinerary,   
     setItineraryError       
@@ -44,8 +45,6 @@ const TripinaryMain = () => {
       alert("Please enter a city or increase the trip duration.");
       return;
     }
-
-    setClick(true);
     
     if (selectedPlace && selectedPlace.geometry) {
       setClick(true);
@@ -56,6 +55,7 @@ const TripinaryMain = () => {
       };
 
       deletePois(); 
+      clearItineraryForm();
 
       for (const category in categoryTypes) {
         if (categoryTypes.hasOwnProperty(category)) {
@@ -173,7 +173,7 @@ const TripinaryMain = () => {
               transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
               style={{ overflow: "hidden", width: "100%" }}
             >
-              <Activity_Suggestions key={"activity_suggestions"} pois={pois} destination={itineraryForm.destination.address} />
+              <Activity_Suggestions key={"activity_suggestions"} pois={pois} destination={itineraryForm.destination.name} />
             </motion.div>
           )}
         </AnimatePresence>

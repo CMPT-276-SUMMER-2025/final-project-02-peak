@@ -28,13 +28,13 @@ app.use(bodyParser.json());
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const AI_MODEL = "mistralai/mixtral-8x7b-instruct";
-
 /**
  * POST /api/generate-itinerary
  * Given a destination and selected places, generates an AI-based itinerary.
  * Input: JSON object with selectedPlaces (array), destinationName (string), and duration (object)
  * Output: JSON array of daily itinerary objects (each with a "day" and "items")
  */
+
 
 app.post('/api/generate-itinerary', async (req, res) => {
     const { selectedPlaces, destinationName, duration } = req.body;
