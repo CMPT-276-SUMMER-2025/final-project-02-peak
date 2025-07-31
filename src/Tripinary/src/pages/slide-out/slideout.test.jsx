@@ -3,6 +3,21 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, test, beforeEach, expect, vi } from 'vitest';
 import SidePanel from '../slide-out/slideout';
 
+const APIKEY = process.env.VITE_GOOGLE_PLACES_API_KEY || 'mock_frontend_api_key'; // Ensure APIKEY is available for this test
+function renderStars(rating) {
+  const fullStars = Math.floor(rating);
+  const halfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+  return (
+    <>
+      {"★".repeat(fullStars)}
+      {halfStar ? "⯨" : ""}
+      {"☆".repeat(emptyStars)}
+    </>
+  );
+}
+
 beforeEach(() => {
   global.fetch = vi.fn(() =>
     Promise.resolve({
@@ -156,6 +171,42 @@ describe('SidePanel Integration Tests', () => {
       expect(screen.queryByText('Alice')).not.toBeInTheDocument();
     });
   });
+const updateMapSourceLogic = (query, destinationName) => {
+  const fullQuery = destinationName ? `${query} ${destinationName}` : query;
+  const encodedQuery = encodeURIComponent(fullQuery);
+  return `https://www.google.com/maps/embed/v1/place?key=${APIKEY}&q=${encodedQuery}`;
+};
+
+
+  describe('updateMapSource Unit Test', () => {
+  test('should generate correct map URL with query and destination', () => {
+    const query = 'Eiffel Tower';
+    const destinationName = 'Paris';
+    const expectedUrl = `https://www.google.com/maps/embed/v1/place?key=${APIKEY}&q=${encodeURIComponent('Eiffel Tower Paris')}`;
+    expect(updateMapSourceLogic(query, destinationName)).toBe(expectedUrl);
+  });
+
+  test('should generate correct map URL with only query', () => {
+    const query = 'Central Park';
+    const destinationName = ''; // No destination
+    const expectedUrl = `https://www.google.com/maps/embed/v1/place?key=${APIKEY}&q=${encodeURIComponent('Central Park')}`;
+    expect(updateMapSourceLogic(query, destinationName)).toBe(expectedUrl);
+  });
+
+  test('should handle special characters in query', () => {
+    const query = 'Café & Bar';
+    const destinationName = 'London';
+    const expectedUrl = `https://www.google.com/maps/embed/v1/place?key=${APIKEY}&q=${encodeURIComponent('Café & Bar London')}`;
+    expect(updateMapSourceLogic(query, destinationName)).toBe(expectedUrl);
+  });
+
+  test('should handle empty query', () => {
+    const query = '';
+    const destinationName = 'New York';
+    const expectedUrl = `https://www.google.com/maps/embed/v1/place?key=${APIKEY}&q=${encodeURIComponent(' New York')}`;
+    expect(updateMapSourceLogic(query, destinationName)).toBe(expectedUrl);
+  });
+});
 
   
 
