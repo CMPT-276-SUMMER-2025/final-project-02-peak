@@ -28,6 +28,8 @@ function PoisProvider({ children }) {
     }
   }, [pois]);
 
+  // Search points of interest around a given location based on a category.
+  // Set the results to pois afterwards
   const findNearbyPlaces = async (location, category, types) => {
     const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
     const url = "https://places.googleapis.com/v1/places:searchNearby"

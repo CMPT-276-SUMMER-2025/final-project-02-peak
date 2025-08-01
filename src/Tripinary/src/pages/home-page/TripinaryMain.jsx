@@ -38,6 +38,12 @@ const TripinaryMain = () => {
     }
   }, [isPoisEmpty]);
 
+  // Find all points of interest around selectedPlace.
+  // 1. Grab latitude & longitude of selectedPlace
+  // 2. Delete current pois list and clear current itineraryForm if occupied
+  // 3. For each category in categoryTypes, make API call to find places in that category
+  // 4. Store results to pois list
+  // 5. Update duration and type of time of user input.
   const handleSubmitDestination = (e) => {
     e.preventDefault();
 
