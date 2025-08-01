@@ -1,7 +1,7 @@
 {
   "name": "your-app-name",
   "version": "1.0.0",
-  "description": "A travel itinerary planner with map and place search.",
+  "description": "A travel itinerary planner that generates users personalized itineraries and allows regenreations.",
   "type": "module",
   "main": "server.js",
   "scripts": {
