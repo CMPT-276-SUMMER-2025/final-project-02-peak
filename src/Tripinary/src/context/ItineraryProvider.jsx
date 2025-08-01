@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import ItineraryContext from './ItineraryContext.jsx';
 
-// Define the initial state structure (can be imported from ItineraryContext.js too)
+// Define the initial state structure
 const initialItineraryForm = {
   destination: {
     name: null, // ex. "Vancouver"
@@ -28,6 +28,9 @@ function ItineraryProvider({ children }) {
     }
   });
 
+  // Grab itiniraryForm from SessionStorage if it exists
+  // Dependency on itineraryForm -> Run this useEffect everytime itineraryForm changes
+  // Returns null
   useEffect(() => {
     try {
       sessionStorage.setItem('tripinaryItineraryForm', JSON.stringify(itineraryForm));
@@ -36,6 +39,8 @@ function ItineraryProvider({ children }) {
     }
   }, [itineraryForm]);
   
+  // Update destination name on the itineraryForm and keep the other attributes
+  // Returns null
   const updateDestinationName = useCallback((name, address) => {
     setItineraryForm(prevForm => ({
       ...prevForm,
@@ -46,6 +51,8 @@ function ItineraryProvider({ children }) {
     }));
   }, []);
 
+  // Update duration on the itineraryForm and keep the other attributes
+  // Returns null
   const updateDuration = useCallback((num, timeType) => {
     setItineraryForm(prevForm => ({
       ...prevForm,
@@ -56,6 +63,9 @@ function ItineraryProvider({ children }) {
     }));
   }, []);
 
+  // Add selected POIs from list to selectedPlaces on itineraryForm
+  // If it already exists, return itineraryForm else add POI.
+  // Returns null
   const addSelectedPlace = useCallback((place) => {
     setItineraryForm(prevForm => {
       if (prevForm.selectedPlaces.some(p => p.id === place.id)) {
@@ -68,6 +78,8 @@ function ItineraryProvider({ children }) {
     });
   }, []);
 
+  // Remove POI from selectedPlaces based on their placeId.
+  // Returns null
   const removeSelectedPlace = useCallback((placeId) => {
     setItineraryForm(prevForm => ({
       ...prevForm,
@@ -75,16 +87,21 @@ function ItineraryProvider({ children }) {
     }));
   }, []);
 
+  // Checks if a POI is in selectedPlaces
+  // Returns True/False
   const isPlaceInForm = useCallback((placeId) => {
     return itineraryForm.selectedPlaces.some(place => place.id === placeId);
   }, [itineraryForm.selectedPlaces]);
 
+  // Sets itineraryForm to initialItineraryForm and removes it from SessionStorage
+  // Returns null
   const clearItineraryForm = useCallback(() => {
     setItineraryForm(initialItineraryForm); 
     sessionStorage.removeItem('tripinaryItineraryForm');
   }, []);
 
-  const setGeneratedItinerary = useCallback((itineraryData) => { // for itineraru data
+  // Store generated itinerary in itineraryForm
+  const setGeneratedItinerary = useCallback((itineraryData) => { // for itinerary data
     setItineraryForm(prevForm => ({
       ...prevForm,
       generatedItinerary: itineraryData,
