@@ -144,11 +144,6 @@ app.post('/api/generate-itinerary', async (req, res) => {
             }
         }
 
-        console.log(" AI RESPONSE");
-        console.log(aiOutput);
-        console.log("CLEANED JSON RESPONSE");
-        console.log(cleanJsonResponse);
-
         // Parse the cleaned JSON string
         let itineraryData;
         try {
