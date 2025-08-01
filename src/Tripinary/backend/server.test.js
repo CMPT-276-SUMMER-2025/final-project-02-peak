@@ -116,3 +116,40 @@ describe('GET /api/place-details', () => {
     expect(fetch).toHaveBeenCalledTimes(1);
   });
 });
+
+// itinerary integration test
+  test("test to return itinerary when valid data is provided", async () => {
+    const mockItineraryResponse = {
+      choices: [
+        {
+          message: {
+            content: JSON.stringify([
+              // these are mock activities used for testing
+              { day: "Day 1",
+                items: [ { time: "08:00", activity: "Breakfast at Jam Café" },
+                      { time: "10:00", activity: "Visit Stanley Park" }, ],
+              },
+            ]),
+          },
+        },
+      ],
+    };
+
+    fetch.mockResolvedValueOnce({ // mock AI response from OpenRouter
+      ok: true,
+      json: async () => mockItineraryResponse,
+    });
+
+    const res = await request(app)
+      .post("/api/generate-itinerary") // send reqiest to backend endpoint
+      .send({
+        selectedPlaces: [{ name: "Stanley Park" }],
+        destinationName: "Vancouver",
+        duration: { num: 1, timeType: "day" },
+      });
+
+    expect(res.status).toBe(200); // to indivacte that backend handled data successfully
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body[0]).toHaveProperty("day"); // to make sure that the day label is there
+    expect(res.body[0].items.length).toBeGreaterThan(0);
+  });
