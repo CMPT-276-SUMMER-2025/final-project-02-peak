@@ -53,13 +53,13 @@ app.post('/api/generate-itinerary', async (req, res) => {
 
     if (!OPENROUTER_API_KEY) {
         console.error("OPENROUTER_API_KEY is not set in environment variables.");
-        return res.status(500).json({ 
+        return res.status(500).json({
             message: "Backend error: OpenRouter API key is missing.",
             details: "Please set OPENROUTER_API_KEY in your Vercel environment variables."
         });
     }
 
-     // Format selected places into a readable list
+    // Format selected places into a readable list
 
     const formattedPlaces = selectedPlaces.map(place => {
         const name = place.displayName?.text || place.name || 'Unnamed Place';
@@ -67,7 +67,7 @@ app.post('/api/generate-itinerary', async (req, res) => {
         return `- ${name}${address}`;
     }).join('\n');
 
-     // Prompt to instruct the AI to generate the itinerary in strict JSON format
+    // Prompt to instruct the AI to generate the itinerary in strict JSON format
 
     const promptContent = `Generate a ${duration.num} ${duration.timeType} itinerary
     for a trip to ${destinationName}. The itinerary MUST include the following
@@ -91,7 +91,7 @@ app.post('/api/generate-itinerary', async (req, res) => {
     Ensure the JSON is perfectly valid and ready for direct parsing.`;
 
 
-     // Call OpenRouter API with the user prompt
+    // Call OpenRouter API with the user prompt
     try {
         const openRouterResponse = await fetch(OPENROUTER_API_URL, {
             method: "POST",
@@ -120,7 +120,12 @@ app.post('/api/generate-itinerary', async (req, res) => {
 
         const aiOutput = openRouterJson.choices[0].message.content;
 
-        let cleanJsonResponse = aiOutput;
+        let cleanJsonResponse = aiOutput
+            .replace(/^```json|^```|```$/g, '')    
+            .replace(/“|”/g, '"')             
+            .replace(/\u0000/g, '')                
+            .trim();
+
         if (cleanJsonResponse.startsWith('```json') && cleanJsonResponse.endsWith('```')) {
             const jsonStart = cleanJsonResponse.indexOf('\n');
             const jsonEnd = cleanJsonResponse.lastIndexOf('```');
@@ -143,18 +148,27 @@ app.post('/api/generate-itinerary', async (req, res) => {
         console.log("CLEANED JSON RESPONSE");
         console.log(cleanJsonResponse);
 
-           // Parse the cleaned JSON string
-
+        // Parse the cleaned JSON string
         let itineraryData;
         try {
-            itineraryData = JSON.parse(cleanJsonResponse);
-        } catch (parseError) {
-            console.error("Failed to parse AI's JSON response:", parseError);
-            console.error("AI Response that caused parsing error (cleaned):", cleanJsonResponse);
-            console.error("AI Response that caused parsing error (raw):", aiOutput);
+            // Clean common characters to make it easier to parse through
+            const cleanedResponse = cleanJsonResponse
+                .replace(/^```json|^```|```$/g, '') 
+                .replace(/“|”/g, '"')                 
+                .replace(/\u0000/g, '')           
+                .trim();
+
+            itineraryData = JSON.parse(cleanedResponse);
+        } catch (err) {
+            console.error("AI returned unparseable JSON.");
+            console.error("Raw AI response:", aiOutput);       
+            console.error("Cleaned response:", cleanJsonResponse);
+            console.error("Parse error:", err.message);
+
             return res.status(500).json({
                 message: "Backend error! Status: 500 - AI generated an unparseable response (JSON parsing failed).",
-                rawResponse: cleanJsonResponse
+                rawResponse: cleanJsonResponse,
+                error: err.message
             });
         }
         res.json(itineraryData);
@@ -180,10 +194,10 @@ const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 app.get('/api/place-details', async (req, res) => {
     const { query } = req.query;
     if (!query) return res.status(400).json({ error: 'Missing query' });
-    
+
     if (!GOOGLE_PLACES_API_KEY) {
         console.error("GOOGLE_PLACES_API_KEY is not set in environment variables.");
-        return res.status(500).json({ 
+        return res.status(500).json({
             error: "Google Places API key is missing.",
             details: "Please set GOOGLE_PLACES_API_KEY in your Vercel environment variables."
         });
@@ -226,7 +240,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server listening on port ${PORT}`);
+    console.log(`Server listening on port ${PORT}`);
 });
 
 
