@@ -147,9 +147,7 @@ const TripinaryMain = () => {
               value={timeType}
               onChange={(e) => setTimeType(e.target.value)}
             >
-              <option value="hours">Hours</option>
               <option value="days">Days</option>
-              <option value="weeks">Weeks</option>
             </select>
           </div>
           <div className="itinerary-button">
