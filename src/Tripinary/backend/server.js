@@ -119,7 +119,7 @@ app.post('/api/generate-itinerary', async (req, res) => {
         }
 
         const aiOutput = openRouterJson.choices[0].message.content;
-
+        // parsing through AI response to clean output before creating itinerary
         let cleanJsonResponse = aiOutput
             .replace(/^```json|^```|```$/g, '')    
             .replace(/“|”/g, '"')             
