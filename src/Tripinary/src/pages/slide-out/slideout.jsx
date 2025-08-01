@@ -131,7 +131,7 @@ function SidePanel({ isOpen, searchQuery, onClose, place, destinationName }) {
             <input
               type="text"
               className="search-bar-input"
-              placeholder="Search places..."
+              placeholder="search places!!!"
               value={searchInputValue}
               onChange={(e) => setSearchInputValue(e.target.value)}
             />
@@ -174,7 +174,7 @@ function SidePanel({ isOpen, searchQuery, onClose, place, destinationName }) {
           <div className="review-card">
             <h4>User Reviews</h4>
             <div className="review-scroll">
-              {(placeDetails?.reviews ?? fallbackReviews).map((review, i) => (
+              {(placeDetails?.reviews?.length ? placeDetails.reviews : fallbackReviews).map((review, i) => (
                 <div className="review" key={i}>
                   <p>
                     {review.author_name ?? review.name}
