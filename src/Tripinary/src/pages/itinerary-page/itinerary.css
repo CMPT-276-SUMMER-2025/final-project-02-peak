@@ -11,6 +11,12 @@
     margin-bottom: 0px;
 }
 
+.itinerary-days-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 h2 {
     text-align: center;
 }
