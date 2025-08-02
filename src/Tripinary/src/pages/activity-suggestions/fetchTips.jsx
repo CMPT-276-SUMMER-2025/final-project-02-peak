@@ -1,5 +1,5 @@
 
-// 🔌 Fetch travel tip from OpenRouter.
+//Fetch travel tip from OpenRouter.
 export async function fetchTips(destination, apiKey) {
   try {
     //Log the destination being queried 
