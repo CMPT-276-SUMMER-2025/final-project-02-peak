@@ -28,9 +28,6 @@ export async function fetchTips(destination, apiKey) {
     //Parse the JSON response from the API 
     const data = await response.json();
 
-    //Use the console.log to get the response data for troubleshooting 
-    console.log("AI response:", data);
-
     //Extract the generated response 
     return data.choices?.[0]?.message?.content || "No tip available, but adventure awaits!";
   } catch (err) {

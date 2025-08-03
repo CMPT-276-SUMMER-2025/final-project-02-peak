@@ -8,6 +8,55 @@ const poisFormat = {
   shopping: [],
 };
 
+// Search points of interest around a given location based on a category.
+// Set the results to pois afterwards
+export const findNearbyPlaces = async (location, category, types, setPois) => {
+  const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  const url = "https://places.googleapis.com/v1/places:searchNearby"
+
+  const reqBody = {
+    includedTypes: types.includedTypes,
+    excludedTypes: types.excludedTypes,
+    maxResultCount: 20,
+    locationRestriction: {
+      circle: {
+        center: {
+          latitude: location.lat,
+          longitude: location.lng
+        },
+        radius: 5000
+      },
+    }
+  }
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": API_KEY,
+      "X-Goog-FieldMask": "places.id,places.displayName,places.types,places.formattedAddress,places.location,places.photos,places.generativeSummary,places.editorialSummary,places.rating,places.priceLevel",
+    },
+    body: JSON.stringify(reqBody),
+  };
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    setPois((prevPois) => ({
+      ...prevPois,
+      [category]: [...prevPois[category], ...(data.places || [])],
+    }))
+
+  } catch (error) {
+    console.error("Could not fetch nearby places:", error);
+    return null;
+  }
+}
+
 function PoisProvider({ children }) {
   const [pois, setPois] = useState(() => {
     try {
@@ -28,57 +77,9 @@ function PoisProvider({ children }) {
     }
   }, [pois]);
 
-  // Search points of interest around a given location based on a category.
-  // Set the results to pois afterwards
-  const findNearbyPlaces = async (location, category, types) => {
-    const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-    const url = "https://places.googleapis.com/v1/places:searchNearby"
-
-    const reqBody = {
-      includedTypes: types.includedTypes,
-      excludedTypes: types.excludedTypes,
-      maxResultCount: 20,
-      locationRestriction: {
-        circle: {
-          center: {
-            latitude: location.lat,
-            longitude: location.lng
-          },
-          radius: 5000
-        },
-      }
-    }
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Goog-Api-Key": API_KEY,
-        "X-Goog-FieldMask": "places.id,places.displayName,places.types,places.formattedAddress,places.location,places.photos,places.generativeSummary,places.editorialSummary,places.rating,places.priceLevel",
-      },
-      body: JSON.stringify(reqBody),
-    };
-    try {
-      const response = await fetch(url, options);
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-  
-      const data = await response.json();
-      setPois((prevPois) => ({
-        ...prevPois,
-        [category]: [...prevPois[category], ...(data.places || [])],
-      }))
-
-    } catch (error) {
-      console.error("Could not fetch nearby places:", error);
-      return null;
-    }
-  }
 
   const findPois = useCallback((location, category, types) => {
-    findNearbyPlaces(location, category, types)
+    findNearbyPlaces(location, category, types, setPois)
   }, []);
 
   const deletePois = useCallback(() => {
