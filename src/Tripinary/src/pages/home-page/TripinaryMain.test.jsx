@@ -111,6 +111,7 @@ describe('TripinaryMain Component', () => {
 describe('findNearbyPlaces', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    import.meta.env.VITE_GOOGLE_MAPS_API_KEY = 'test-api-key';
   });
 
   it('sends correct POST request and updates pois', async () => {
