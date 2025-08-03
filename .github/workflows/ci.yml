@@ -24,6 +24,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+    
+      - name: Print working directory
+        run: pwd
+
+      - name: List files in directory
+        run: ls -la
+
+
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
