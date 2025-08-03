@@ -35,8 +35,6 @@ jobs:
       - name: List files in directory
         run: ls -la
 
-
-
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
@@ -49,6 +47,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install backend dependencies
+        run: npm install
+        working-directory: src/Tripinary/backend
 
       - name: Run Vitest 
         run: npx vitest
