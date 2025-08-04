@@ -51,7 +51,7 @@ const renderWithProviders = () =>
   );
 
 // Component Testing for Main page.  
-describe('TripinaryMain Component', () => {
+describe('TripinaryMain Component Testing', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -107,11 +107,42 @@ describe('TripinaryMain Component', () => {
   });
 });
 
+describe('PoisContext & ItineraryContext Testing', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('updates the destination name', () => {
+    const fn = vi.fn();
+    const context = { ...mockItineraryContext, updateDestinationName: fn };
+  
+    context.updateDestinationName("Vancouver");
+    expect(fn).toHaveBeenCalledWith("Vancouver");
+  });
+
+  it('updates the duration', () => {
+    const fn = vi.fn();
+    const context = { ...mockItineraryContext, updateDuration: fn };
+  
+    context.updateDuration("5");
+    expect(fn).toHaveBeenCalledWith("5");
+  });
+
+  it('check if pois list is empty', () => {
+    const fn = vi.fn(() => true);
+    const context = { ...mockItineraryContext, isPoisEmpty: fn };
+  
+    const result = context.isPoisEmpty();
+    expect(result).toBe(true);
+  });
+
+})
+
 // Test for Google Places API.
 describe('findNearbyPlaces', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    import.meta.env.VITE_GOOGLE_MAPS_API_KEY = 'test-api-key';
+    import.meta.env.VITE_GOOGLE_PLACES_API_KEY = 'test-api-key';
   });
 
   it('sends correct POST request and updates pois', async () => {

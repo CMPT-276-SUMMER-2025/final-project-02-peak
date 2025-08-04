@@ -2,9 +2,6 @@
 //Fetch travel tip from OpenRouter.
 export async function fetchTips(destination, apiKey) {
   try {
-    //Log the destination being queried 
-    console.log("Sending AI request for:", destination)
-
     //Make a POST request to OpenRouter's chat completion endpoint 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",

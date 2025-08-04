@@ -201,6 +201,9 @@ const TripinaryMain = () => {
           {itineraryForm.isLoadingItinerary ? "Generating Itinerary..." : "Generate Itinerary"}
         </button>
       </div>
+      <div className={`global-notification ${isVisible ? 'show' : ''} ${notification.type}`}>
+        {notification.message}
+      </div>
     </div>
   );
 };

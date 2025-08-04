@@ -10,7 +10,7 @@ import "./activity_carousel.css";
 
 function Activity_Carousel({ category, list }) {
   const getPhotoUrl = (imgSrc, maxWidth) => {
-    const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    const API_KEY = import.meta.env.VITE_GOOGLE_PLACES_API_KEY;
     if (!imgSrc) return "default_img.jpg";
 
     return `https://places.googleapis.com/v1/${imgSrc}/media?key=${API_KEY}&maxWidthPx=${maxWidth}`;

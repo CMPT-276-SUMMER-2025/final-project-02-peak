@@ -19,7 +19,7 @@ const Place_AutoComplete = ({ onPlaceSelected }) => {
 
   return (
     <LoadScript
-      googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+      googleMapsApiKey={import.meta.env.VITE_GOOGLE_PLACES_API_KEY}
       libraries={libraries}
       version="beta"
     >
