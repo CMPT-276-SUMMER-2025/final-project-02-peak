@@ -152,6 +152,8 @@
   cursor: pointer;
 }
 
+
+
 input[type="text"] {
   border: none;
   outline: none;
@@ -186,4 +188,20 @@ input[type="text"] {
 .global-notification.show {
   bottom: 20px;
   opacity: 1;
+}
+
+.wait-message {
+  font-size: 1rem;
+  color: #666;
+  text-align: right;
+  margin-bottom: 0; 
+  font-style: italic;
+  margin-top: 12px;
+  margin-left: 6%;
+  max-width: none;
+  padding: 10px 14px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  display: block;
 }

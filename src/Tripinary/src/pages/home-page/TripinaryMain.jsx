@@ -26,8 +26,8 @@ const TripinaryMain = () => {
     updateDuration,
     clearItineraryForm,
     setGeneratedItinerary,
-    setIsLoadingItinerary,   
-    setItineraryError       
+    setIsLoadingItinerary,
+    setItineraryError
   } = useContext(ItineraryContext);
 
   const { pois, findPois, deletePois, isPoisEmpty, notification, isVisible } = useContext(PoisContext);
@@ -47,27 +47,27 @@ const TripinaryMain = () => {
   const handleSubmitDestination = (e) => {
     e.preventDefault();
 
-    if(selectedPlace === null && duration === 0) {
+    if (selectedPlace === null && duration === 0) {
       alert("Please enter a city or increase the trip duration.");
       return;
     }
-    
+
     if (selectedPlace && selectedPlace.geometry) {
       setClick(true);
-      
+
       const location = {
         lat: selectedPlace.geometry.location.lat(),
         lng: selectedPlace.geometry.location.lng()
       };
 
-      deletePois(); 
+      deletePois();
       clearItineraryForm();
 
       for (const category in categoryTypes) {
         if (categoryTypes.hasOwnProperty(category)) {
           findPois(location, category, categoryTypes[category]);
         }
-      }  
+      }
 
       updateDestinationName((selectedPlace.displayName?.text || selectedPlace.name), selectedPlace.formatted_address)
       updateDuration(Number(duration), timeType);
@@ -79,9 +79,9 @@ const TripinaryMain = () => {
   };
 
   const handleSubmitItinerary = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    if (!itineraryForm.destination.name|| !itineraryForm.duration.num || itineraryForm.selectedPlaces.length === 0) {
+    if (!itineraryForm.destination.name || !itineraryForm.duration.num || itineraryForm.selectedPlaces.length === 0) {
       alert("Please ensure you have selected a destination, duration, and at least one activity before generating the itinerary.");
       return;
     }
@@ -108,15 +108,15 @@ const TripinaryMain = () => {
       }
 
       const data = await response.json();
-      
-      setGeneratedItinerary(data); 
-      
+
+      setGeneratedItinerary(data);
+
       navigate('/itinerary');
 
     } catch (err) {
       console.error("Failed to generate itinerary:", err);
       setItineraryError(err.message);
-      alert(`Error generating itinerary: ${err.message}`); 
+      alert(`Error generating itinerary: ${err.message}`);
     } finally {
     }
   };
@@ -148,7 +148,7 @@ const TripinaryMain = () => {
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
             />
-            <select 
+            <select
               className="drop-down"
               value={timeType}
               onChange={(e) => setTimeType(e.target.value)}
@@ -182,22 +182,24 @@ const TripinaryMain = () => {
           )}
         </AnimatePresence>
       </div>
+
+      <p className="wait-message">
+        Please wait after pressing 'Generate Itinerary' — this may take a few seconds/minutes depending on your trip duration and selected activities!
+      </p>
+
       <div className="submit_area">
         <p>{itineraryForm.selectedPlaces.length} Destinations Selected</p>
         <button
           onClick={(e) => handleSubmitItinerary(e)}
           disabled={
-            itineraryForm.isLoadingItinerary ||    
-            !itineraryForm.destination.name ||        
-            !itineraryForm.duration.num ||          
-            itineraryForm.selectedPlaces.length === 0 
+            itineraryForm.isLoadingItinerary ||
+            !itineraryForm.destination.name ||
+            !itineraryForm.duration.num ||
+            itineraryForm.selectedPlaces.length === 0
           }
         >
           {itineraryForm.isLoadingItinerary ? "Generating Itinerary..." : "Generate Itinerary"}
         </button>
-      </div>
-      <div className={`global-notification ${isVisible ? 'show' : ''} ${notification.type}`}>
-        {notification.message}
       </div>
     </div>
   );
