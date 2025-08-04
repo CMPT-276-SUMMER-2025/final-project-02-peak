@@ -18,7 +18,9 @@ Our team came up with this idea because our group consists of international stud
 ## Links to our project website, videos, and reports
 
 Website: https://tripinary-one.vercel.app
+
 Videos: 
+
 Reports: final-project-02-peak/docs/
 
 ## Instructions to deploy our app locally
