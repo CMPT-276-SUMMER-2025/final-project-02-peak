@@ -142,7 +142,7 @@ describe('PoisContext & ItineraryContext Testing', () => {
 describe('findNearbyPlaces', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    import.meta.env.VITE_GOOGLE_MAPS_API_KEY = 'test-api-key';
+    import.meta.env.VITE_GOOGLE_PLACES_API_KEY = 'test-api-key';
   });
 
   it('sends correct POST request and updates pois', async () => {

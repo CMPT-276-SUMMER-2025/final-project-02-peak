@@ -53,13 +53,6 @@ function SidePanel({ isOpen, searchQuery, onClose, place, destinationName }) {
     }
   }, [searchQuery, destinationName]);
 
-  // Logs place details 
-  useEffect(() => {
-    if (placeDetails) {
-      console.log("placeDetails updated:", placeDetails);
-    }
-  }, [placeDetails]);
-
   /**
    * Updates the map iframe source using the encoded search query.
    * @param {string} query - Place or location name to display in the map.

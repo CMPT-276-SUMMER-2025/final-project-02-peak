@@ -11,7 +11,7 @@ const poisFormat = {
 // Search points of interest around a given location based on a category.
 // Set the results to pois afterwards
 export const findNearbyPlaces = async (location, category, types, setPois) => {
-  const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  const API_KEY = import.meta.env.VITE_GOOGLE_PLACES_API_KEY
   const url = "https://places.googleapis.com/v1/places:searchNearby"
 
   const reqBody = {
