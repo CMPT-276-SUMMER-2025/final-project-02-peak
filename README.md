@@ -24,3 +24,30 @@ Videos:
 Reports: final-project-02-peak/docs/
 
 ## Instructions to deploy our app locally
+### Run App Locally: 
+#### 1. Clone the repository locally 
+  a) In the repository, click on the <> Code dropdown button 
+  b) Under HTTPS, copy the URL to clone 
+  c) Open your terminal (assuming you have git and node installed), type ‘git clone [copied URL]. 
+
+#### 2. Once cloned, navigate to the ‘Tripinary’ folder 
+  a) In the terminal, while you are in the final-project- 02-peak, type ‘cd src’ then ‘cd Tripinary’
+
+#### 3. Add the .env file with the provided API keys
+  a) Place the provided env file in both the root folder (/Tripinary) and the backend folder (/Tripinary/backend)
+
+#### 4. Install all dependencies by typing ‘npm install’ in the terminal in both the root (/Tripinary) and the backend folder (/Tripinary/backend) 
+
+#### 5. Run the backend server first
+  a) Navigate to the backend folder in the terminal inside Tripinary using the command ‘cd backend’
+  b) Install the dependencies inside the backend folder by typing ‘npm install’
+  c) Run the backend server by typing  ‘npm start’ (runs on localhost: 5000) or ‘node server.js’
+
+#### 4. Run the frontend server 
+  a) Return to the Tripinary folder by typing ‘cd ..’ 
+  b) Run the frontend server by typing ‘npm run dev’ (runs on localhost: 5173)
+
+### Run Tests Locally: 
+#### 1. Inside the repository, navigate to the Tripinary folder again, similar to the steps above. 
+#### 2. Type ‘npx vitest’ to run the tests. 
+
