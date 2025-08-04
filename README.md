@@ -19,15 +19,19 @@ Our team came up with this idea because our group consists of international stud
 
 Website: https://tripinary-one.vercel.app
 
-Videos: 
+Videos: https://drive.google.com/file/d/1Gi2XDRzjWVgM63WsmcStREryLiFIOg21/view?usp=sharing
 
 Reports: final-project-02-peak/docs/
 
 ## Instructions to deploy our app locally
+
 ### Run App Locally: 
+
 #### 1. Clone the repository locally 
   a) In the repository, click on the <> Code dropdown button 
+  
   b) Under HTTPS, copy the URL to clone 
+  
   c) Open your terminal (assuming you have git and node installed), type ‘git clone [copied URL]. 
 
 #### 2. Once cloned, navigate to the ‘Tripinary’ folder 
@@ -40,11 +44,14 @@ Reports: final-project-02-peak/docs/
 
 #### 5. Run the backend server first
   a) Navigate to the backend folder in the terminal inside Tripinary using the command ‘cd backend’
+  
   b) Install the dependencies inside the backend folder by typing ‘npm install’
+  
   c) Run the backend server by typing  ‘npm start’ (runs on localhost: 5000) or ‘node server.js’
 
 #### 4. Run the frontend server 
   a) Return to the Tripinary folder by typing ‘cd ..’ 
+  
   b) Run the frontend server by typing ‘npm run dev’ (runs on localhost: 5173)
 
 ### Run Tests Locally: 
