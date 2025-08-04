@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import ItineraryContext from "../../context/ItineraryContext.jsx"; // containing itinerary data
 import DayCard from "../../components/day_card/day_card";
 import "./itinerary.css";
 import SidePanel from "../slide-out/slideout";
 
+
 function Itinerary() {
+
   // include to access shared state and update functions
   const {
     itineraryForm,
@@ -85,15 +87,14 @@ function Itinerary() {
           message: "Unknown error from backend.",
         }));
         throw new Error(
-          `Backend error! Status: ${response.status} - ${
-            errorData.message || "Unknown error"
+          `Backend error! Status: ${response.status} - ${errorData.message || "Unknown error"
           }`
         );
       }
       // set generated itinerary after list has been created
       const data = await response.json();
       setGeneratedItinerary(data);
-    // handling errors in cases where there may be api issues
+      // handling errors in cases where there may be api issues
     } catch (err) {
       console.error("Failed to generate itinerary:", err);
       setItineraryError(err.message);
@@ -105,15 +106,22 @@ function Itinerary() {
 
   return (
     <div className="itinerary-container">
-    {/* Header to show user the destination name */}
+
+      {/* Header to show user the destination name */}
       <h1>
         Your Trip Itinerary for {itineraryForm.destination.name || "Your Destination"}
       </h1>
+
+      {/* static message that tells user about each place if they press on the place */}
+      <p className="activity-note-message">
+        🔍 Want more details? Click on any activity to explore reviews, see its location on the map, and discover more helpful info!
+      </p>
 
       {/* display each day in an itinerary in day containers*/}
       {itineraryForm.isLoadingItinerary ? (
         <div className="loading-message-container">
           <p>Generating your itinerary... please wait ⏳</p>
+          <div className="spinner"></div>
         </div>
       ) : error ? (
         <p className="error-message">Error: {error}</p>
