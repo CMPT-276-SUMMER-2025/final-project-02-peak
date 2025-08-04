@@ -27,14 +27,14 @@ Reports: final-project-02-peak/docs/
 
 ### Run App Locally: 
 
-#### - 1. Clone the repository locally 
-  **A)** In the repository, click on the <> Code dropdown button 
+#### 1. Clone the repository locally 
+  a) In the repository, click on the <> Code dropdown button 
   
-  **B)** Under HTTPS, copy the URL to clone 
+  b) Under HTTPS, copy the URL to clone 
   
-  **C** Open your terminal (assuming you have git and node installed), type ‘git clone [copied URL]. 
+  c) Open your terminal (assuming you have git and node installed), type ‘git clone [copied URL]. 
 
-#### - 2. Once cloned, navigate to the ‘Tripinary’ folder 
+#### 2. Once cloned, navigate to the ‘Tripinary’ folder 
   a) In the terminal, while you are in the final-project- 02-peak, type ‘cd src’ then ‘cd Tripinary’
 
 #### 3. Add the .env file with the provided API keys
