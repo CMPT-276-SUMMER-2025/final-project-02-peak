@@ -79,7 +79,7 @@ describe('TripinaryMain Component', () => {
   it('disables generate itinerary button if no places selected', () => {
     renderWithProviders();
 
-    const generateBtn = screen.getByText(/Generate Itinerary/i);
+    const generateBtn = screen.getByRole('button', { name: /Generate Itinerary/i });
     expect(generateBtn).toBeDisabled();
   });
 
