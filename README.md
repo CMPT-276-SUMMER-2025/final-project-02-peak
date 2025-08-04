@@ -23,6 +23,9 @@ Videos: https://drive.google.com/file/d/1Gi2XDRzjWVgM63WsmcStREryLiFIOg21/view?u
 
 Reports: final-project-02-peak/docs/
 
+Deployment Repository: https://github.com/beverlyyen/tripinaryclone
+
+
 ## Instructions to deploy our app locally
 
 ### Run App Locally: 
