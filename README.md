@@ -15,3 +15,10 @@ Our application focuses on helping users plan trips and create daily itineraries
 
 Our team came up with this idea because our group consists of international students and travel enthusiasts who like to go on trips. We often have places we want to go, but planning certain activities at each destination can be time consuming and overwhelming. Tripinary is an important app because it allows travellers to plan trips all in one place without having to search through reviews and sites just to find a few good options. Our app has AI-generated itineraries and displays the activities on the map based on individual user preferences. This not only saves time but also encourages people to discover new destinations they might not have considered. 
 
+## Links to our project website, videos, and reports
+
+Website: https://tripinary-one.vercel.app
+Videos: 
+Reports: final-project-02-peak/docs/
+
+## Instructions to deploy our app locally
