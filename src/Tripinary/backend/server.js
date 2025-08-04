@@ -27,8 +27,8 @@ app.use(bodyParser.json());
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
+//const AI_MODEL = "qwen/qwen3-coder:free"
 const AI_MODEL = "openai/gpt-3.5-turbo"
-//const AI_MODEL = "openai/gpt-3.5-turbo"
 /**
  * POST /api/generate-itinerary
  * Given a destination and selected places, generates an AI-based itinerary.
